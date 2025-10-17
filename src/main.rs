@@ -1,5 +1,5 @@
 // Uncomment the following line to ignore dead code warnings:
-// #![allow(dead_code)]
+#![allow(dead_code)]
 
 // GIT:
 // If you never used git before, try to use it during this exercise!
@@ -19,16 +19,16 @@
 /// Ex.2i
 fn var_decl() {
     // Add the missing keyword
-    x = 5;
+    let x = 5;
     println!("x = {x}");
 }
 
 /// Ex.2ii
 fn data_types() {
     // Replace ??? with fitting data types
-    let a: ??? = 7;
-    let b: ??? = "Hello World";
-    let c: ??? = true;
+    let a: i32 = 7;
+    let b: &str = "Hello World";
+    let c: bool = true;
 
     // Use if...else to print b if c is True or a if c is not True
 }
@@ -36,7 +36,7 @@ fn data_types() {
 /// Ex.2iii
 fn mutability() {
     // Add the missing keyword
-    let x = 5;
+    let mut x = 5;
     println!("{x}");
 
     x = 3; // Don't change this line!
@@ -45,8 +45,9 @@ fn mutability() {
 
 /// Ex.3a
 // Add another parameter y of the correct type and the correct return type
-fn add(x: i32, ???) -> ??? {
+fn add(x: i32, y: i32) -> i32 {
     // Return the sum of x and y (you can do it two different ways, but one is more idiomatic!)
+    x + y
 }
 
 /// Ex.3b(i)
@@ -56,13 +57,41 @@ fn add(x: i32, ???) -> ??? {
 // The factorial n! of n is defined like so:
 //   n! = n * (n - 1) * (n - 2) * ... * (n - (n - 1)) if n >= 1
 
+fn fac_while(mut n: u32) -> u32 {
+    let mut res = 1;
+
+    while n != 0 {
+        res = res * n;
+        n = n - 1;
+    }
+
+    res
+}
+
 /// Ex.3b(ii)
 // Use a for loop to write a 'fac_for' function, which does the same thing as your 'fac_while' function
+
+fn fac_for(n: u32) -> u32 {
+    let mut res = 1;
+
+    for i in 1..=n { //1..n -> includes 1 to n-1, 1..=n includes 1 to n
+        res = res * i;
+    }
+
+    res
+}
 
 /// Ex.3b(iii)
 // Use recursion to write a 'fac_rec' function, which does the same thing as your 'fac_while' function
 // Try to use the match construct instead of if...else:
 // https://rust-book.cs.brown.edu/ch06-02-match.html
+
+fn fac_rec(n: u32) -> u32 {
+    match n {
+        0 | 1 => 1, //comma to end this `match` arm
+        _ => n * fac_rec(n - 1)
+    }
+}
 
 /// Ex.4
 // Solve this exercise by reading the Rust documentation:
@@ -71,16 +100,27 @@ fn vec_basics() -> Vec<i32> {
     let arr: [i32; 5] = [1,2,3,4,5];
 
     // Create a Vec with the same elements that are in 'arr' (there are multiple ways)
+    let mut vec = Vec::new();
+
+    for i in arr {
+        vec.push(i);
+    }
 
     // Add 6,7,8 to the end of v
+    vec.extend([6, 7, 8]);
 
     // Remove the last number in v
+    vec.pop();
 
     // Remove the number at index 3
+    vec.remove(3);
 
     // Calculate the length of v and print it
+    let l = vec.len();
+    println!("{l}");
 
     // Return v
+    vec
 }
 
 
